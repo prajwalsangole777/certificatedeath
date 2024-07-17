@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Certificate Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 80%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container label,
+        .form-container input,
+        .form-container select {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .form-container input,
+        .form-container select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Death Certificate Form</h2>
+        <form id="certificateForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="Name" required>
+
+            <label for="dateOfDeath">Date of Death:</label>
+            <input type="date" id="dateOfDeath" name="Date_of_Death" required>
+
+            <label for="placeOfDeath">Place of Death:</label>
+            <input type="text" id="placeOfDeath" name="Place_of_Death" required>
+
+            <label for="motherAadhar">Mother's Aadhaar No.:</label>
+            <input type="text" id="motherAadhar" name="Mothers_Aadhaar_No" required>
+
+            <label for="fatherAadhar">Father's Aadhaar No.:</label>
+            <input type="text" id="fatherAadhar" name="Fathers_Aadhaar_No" required>
+
+            <label for="address">Permanent Address:</label>
+            <input type="text" id="address" name="Permanent_Address" required>
+
+            <label for="registrationNo">Registration Number:</label>
+            <input type="text" id="registrationNo" name="Registration_Number" required>
+
+            <label for="dateOfIssue">Date of Issue:</label>
+            <input type="date" id="dateOfIssue" name="Date_of_Issue" required>
+
+            <button type="submit">Generate Certificate</button>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwACOvN1h1vXDcSrJjQfn8ivequDaiKY21XvJ6IjR-NfCPs9QbYvJYtHVwnSyyq4vaHeg/exec';
+        const form = document.getElementById('certificateForm');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const formData = new FormData(form);
+
+            // Prepare data for submission
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Store data in sessionStorage if needed
+            sessionStorage.setItem('certificateData', JSON.stringify(data));
+
+            // Submit data to Google Apps Script endpoint
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(responseData => {
+                    if (responseData.status === 'Success') {
+                        // Update UI or handle success
+                        // Example: Redirect to a success page
+                        window.location.href = 'permission.html';
+                    } else {
+                        alert('Error: ' + responseData.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message);
+                });
+        });
+    </script>
+
+</body>
+
+</html>

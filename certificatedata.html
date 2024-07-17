@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Certificate</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            margin-left: 300px;
+            margin-right: 300px;
+            padding: 100px;
+            padding-left: 50px;
+            background-color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            border: 2px solid #000000;
+            padding: 20px;
+            background-color: white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-left,
+        .logo-right {
+            flex: 50px 50px auto;
+            padding: 50px;
+        }
+
+        .logo img {
+            height: 100px;
+        }
+
+        .form-number {
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+
+        p {
+            text-align: justify;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .form-section {
+            margin: 20px 0;
+        }
+
+        label {
+            font-weight: bold;
+            display: inline-block;
+            width: 300px;
+            padding-left: 150px;
+        }
+
+        span {
+            display: inline-block;
+            width: calc(100% - 310px);
+            padding-left: 150px;
+            font-size: 1em;
+        }
+
+        footer {
+            margin-top: 20px;
+        }
+
+        footer p {
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo logo-left">
+                <img src="/img/logo1.png" alt="Logo">
+            </div>
+            <div class="form-number">
+                <h1>मृत्यु प्रमाणपत्र</h1>
+                <h1>DEATH CERTIFICATE</h1>
+            </div>
+            <div class="logo logo-right">
+                <img src="/img/logo2.png" alt="Logo">
+            </div>
+        </header>
+
+        <div class="form-section">
+            <label>मृत व्यक्तीचे नाव / Name:</label> <span id="Nameoftheperson">...........................</span><br>
+            <label>मृत्यूची तारीख / Date of Death:</label> <span id="DateofDeath">...........................</span><br>
+            <label>मृत्यूचे ठिकाण / Place of Death:</label> <span id="placeOfDeath">...........................</span><br>
+            <label>आईचा आधार क्रमांक / Mother's Aadhaar No:</label> <span id="motherAadhar">...........................</span><br>
+            <label>वडिलांचा आधार क्रमांक / Father's Aadhaar No:</label> <span id="fatherAadhar">...........................</span><br>
+            <label>कायमचा पत्ता / Permanent Address:</label> <span id="address">...........................</span><br>
+            <label>नोंदणी क्रमांक / Registration No.:</label> <span id="registrationNo">...........................</span><br>
+            <label>प्रमाणपत्र दिल्याचा दिनांक / Date of Issue:</label> <span id="dateOfIssue">...........................</span><br>
+        </div>
+
+        <footer>
+            <p>मुद्र / Seal</p>
+        </footer>
+    </div>
+
+    <script>
+        const data = JSON.parse(sessionStorage.getItem('certificateData'));
+
+        if (data) {
+            document.getElementById('Nameoftheperson').textContent = data.Name;
+            document.getElementById('DateofDeath').textContent = data.Date_of_Death;
+            document.getElementById('placeOfDeath').textContent = data.Place_of_Death;
+            document.getElementById('motherAadhar').textContent = data.Mothers_Aadhaar_No;
+            document.getElementById('fatherAadhar').textContent = data.Fathers_Aadhaar_No;
+            document.getElementById('address').textContent = data.Permanent_Address;
+            document.getElementById('registrationNo').textContent = data.Registration_Number;
+            document.getElementById('dateOfIssue').textContent = data.Date_of_Issue;
+        } else {
+            document.body.innerHTML = '<p>No certificate data found.</p>';
+        }
+    </script>
+
+</body>
+
+</html>
